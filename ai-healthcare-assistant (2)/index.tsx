@@ -1,9 +1,4 @@
-// FIX: Polyfill process to prevent crash
-(window as any).process = {
-  env: {
-    NODE_ENV: 'production'
-  }
-};
+import './src/polyfills'; // 👈 This MUST be the first line
 
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideZonelessChangeDetection } from '@angular/core';
