@@ -1,0 +1,23 @@
+<div class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 animate-fade-in" (click)="cancel.emit()">
+  <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4 transform animate-scale-in" (click)="$event.stopPropagation()">
+    <div class="text-center">
+      <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-900/30">
+        <svg class="h-6 w-6 text-red-600 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      </div>
+      <h3 class="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-100">{{ title() }}</h3>
+      <div class="mt-2">
+        <p class="text-sm text-slate-500 dark:text-slate-400">{{ message() }}</p>
+      </div>
+    </div>
+    <div class="mt-6 grid grid-cols-2 gap-3">
+      <button type="button" (click)="cancel.emit()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-slate-100 dark:bg-slate-700 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 dark:focus:ring-offset-slate-800">
+        {{ cancelText() }}
+      </button>
+      <button type="button" (click)="confirm.emit()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-slate-800">
+        {{ confirmText() }}
+      </button>
+    </div>
+  </div>
+</div>

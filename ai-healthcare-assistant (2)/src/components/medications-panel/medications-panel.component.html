@@ -1,0 +1,64 @@
+<div class="flex flex-col h-full relative">
+  <div class="flex-1 overflow-y-auto p-4 md:p-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6 text-slate-800 dark:text-slate-100">{{ languageService.translationsMap()['myMedications'] }}</h2>
+      
+      @if (medicationService.medications().length > 0) {
+        <div class="space-y-4">
+          @for (med of medicationService.medications(); track med.id) {
+            <div class="bg-white dark:bg-slate-800 rounded-xl shadow-md p-4 flex items-center justify-between animate-fade-in">
+              <div class="flex items-center space-x-4">
+                <div class="p-3 bg-blue-100 dark:bg-blue-900/50 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-lg">{{ med.name }}</p>
+                  <p class="text-slate-500 dark:text-slate-400 text-sm">
+                    {{ med.dosage }}
+                    @if (med.frequency) {
+                      <span class="mx-1">&middot;</span>
+                      <span>{{ med.frequency }}</span>
+                    }
+                    @if (med.tabletCount && med.tabletCount > 0) {
+                      <span class="mx-1">&middot;</span>
+                      <span>{{ med.tabletCount }} {{ med.tabletCount === 1 ? 'tablet' : 'tablets' }}</span>
+                    }
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-4">
+                <span class="font-bold text-xl text-blue-500 dark:text-blue-400">{{ med.time }}</span>
+                <button (click)="deleteMedication(med.id, $event)" class="p-2 rounded-full text-slate-400 hover:bg-red-100 hover:text-red-500 dark:hover:bg-red-900/30 dark:hover:text-red-400 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="text-center py-16 px-4 bg-slate-100 dark:bg-slate-800 rounded-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-16 w-16 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.5l8-8a4.94 4.94 0 0 1 7 7l-8 8a4.94 4.94 0 0 1-7-7z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.5 8.5l7 7" />
+          </svg>
+          <h3 class="mt-4 text-lg font-semibold text-slate-800 dark:text-slate-200">{{ languageService.translationsMap()['noMedicationsAdded'] }}</h3>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ languageService.translationsMap()['addFirstMedication'] }}</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <button (click)="isAddModalOpen.set(true)" class="absolute bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white rounded-full p-4 shadow-lg transition-transform transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-slate-900">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+    </svg>
+  </button>
+
+  @if (isAddModalOpen()) {
+    <app-add-medication-modal (close)="isAddModalOpen.set(false)" (save)="addMedication($event)"></app-add-medication-modal>
+  }
+</div>

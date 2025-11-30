@@ -1,0 +1,9 @@
+{
+  "name": "AI Healthcare Assistant",
+  "description": "An AI-powered, multilingual chat assistant for quick healthcare information. This is for informational purposes and not a substitute for professional medical advice.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation",
+    "camera"
+  ]
+}
